@@ -302,7 +302,7 @@ class DistributedPerformanceTest extends ReportGenerationPerformanceTest {
     private void collectPerformanceTestResults(Map response, String jobId) {
         try {
             JUnitTestSuite testSuite = fetchTestResult(response)
-            finishedBuilds.put(jobId, new ScenarioResult(name: scheduledBuilds.get(jobId).id, buildResult: response.data, testSuite: testSuite))
+            finishedBuilds.put(jobId, new ScenarioResult(name: scheduledBuilds.get(jobId).id, buildResult: response, testSuite: testSuite))
             fireTestListener(testSuite, response)
         } catch (e) {
             e.printStackTrace(System.err)
@@ -401,7 +401,7 @@ class DistributedPerformanceTest extends ReportGenerationPerformanceTest {
         client = new RESTClient("$teamCityUrl/httpAuth/app/rest/9.1")
         client.auth.basic(teamCityUsername, teamCityPassword)
         client.headers['Origin'] = teamCityUrl
-        client.headers['Accept'] = ContentType.JSON
+        client.headers['Accept'] = ContentType.JSON.toString()
         client
     }
 
